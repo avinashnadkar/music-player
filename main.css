@@ -1,0 +1,53 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+/*------------------music-player (layout)------------*/
+.music-player{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.62), rgba(0, 0, 0, 0.58)), url("Assets/got.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* controls btns */
+
+.controls{
+    margin-top: 20px;
+}
+
+#play-pause-btn{
+    padding: 9px 18px;
+    border-radius: 20px;
+    background-color: rgba(128, 128, 128, 0.363);;
+    border: 1px solid rgb(65, 10, 102);
+    color: rgb(65, 10, 102);
+}
+#volume-btn, #fast-forward-btn{
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: rgba(128, 128, 128, 0.363);;
+    border: 1px solid rgb(65, 10, 102);
+    color: rgb(65, 10, 102);
+}
+#previous-btn, #next-btn{
+    background-color: rgba(128, 128, 128, 0.363);;
+    border: 1px solid rgb(65, 10, 102);
+    color: rgb(65, 10, 102);
+}
+/*------------------ canvas-------------- */
+#canv{
+    border: 1px solid rgb(65, 10, 102);
+    height: 400px;
+    width: 850px;
+    padding: 15px;
+    background-color: rgba(128, 128, 128, 0.363);
+}

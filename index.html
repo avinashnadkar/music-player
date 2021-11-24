@@ -6,9 +6,22 @@
     <title>Music Player</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+    <!-- google icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-    
+
+    <div class="music-player">
+        <canvas id="canv"></canvas>
+        <div class="controls">
+            <button id="previous-btn"><i class="material-icons">&#xe408;</i></button>
+            <button id="volume-btn"><i class="material-icons">&#xe050;</i></button>	
+            <button id="play-pause-btn"><i class="material-icons">&#xe037;</i></button>
+            <button id="fast-forward-btn"><i class="material-icons">&#xe01f;</i></button>
+            <button id="next-btn"><i class="material-icons">&#xe409;</i></button>
+        </div>
+    </div>
+
+    <script src='main.js'></script>
 </body>
 </html>
