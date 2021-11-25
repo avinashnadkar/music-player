@@ -12,7 +12,6 @@ body{
     align-items: center;
     overflow: hidden;
     justify-content: center;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.62), rgba(0, 0, 0, 0.58)), url("Assets/got.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
