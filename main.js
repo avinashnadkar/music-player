@@ -73,6 +73,8 @@ nextSongBtn.addEventListener('click',()=>{
     musicPlayer.style.backgroundImage = `radial-gradient(rgba(255, 255, 255, 0.62), rgba(0, 0, 0, 0.58)), url('${currentSong.coverImg}')`;
     //if music player is playing song then play song
     if(isPlaying) audio.play()
+    //draw bars after changing song
+    drawBars()
 })
 
 /////Play previous song/////
@@ -84,12 +86,127 @@ previousSongBtn.addEventListener('click',()=>{
         currentSong = songs[songs.length-1]
     }
 
-    console.log(currentSong.index)
     //change src of audio
     audio.src = currentSong.src;
     //change cover photo of songs
     musicPlayer.style.backgroundImage = `radial-gradient(rgba(255, 255, 255, 0.62), rgba(0, 0, 0, 0.58)), url('${currentSong.coverImg}')`;
     //if music player is playing song then play song
     if(isPlaying) audio.play()
+    //draw bars after changing song
+    drawBars()
 })
 
+//change time to current bar
+function changeTime(time){
+    audio.currentTime = time;
+}
+
+////////////////////////Canvas//////////////////////
+//create canvas to draw graphics
+let canvas = document.getElementById('canv');
+//give height and width to canvas
+
+let barCtx = canvas.getContext('2d')
+// let midLine = canvas.getContext('2d');
+// midLine.beginPath();
+// midLine.lineCap = "round";
+// midLine.moveTo( 0,canvas.height/2);
+// midLine.lineTo(canvas.width, canvas.height/2);
+// midLine.stroke();
+
+//Get random number
+function getRandomNum(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+ }
+
+//draw bars
+//construct bar
+class bar {
+    constructor(x,y,w,h){
+       this.x = x
+       this.y = y
+       this.w = w
+       this.h = h
+   }
+}
+
+let bars;
+
+function drawBars(){
+    //save all bars in array
+    bars = [];
+    //set bar numbers to current song length (seconds)
+    let barsLength = currentSong.length
+    //draw bars
+    for (let i = 0; i < barsLength; i+=2) {
+        let barHeight = getRandomNum(30,50)
+        let bar_y_position
+    
+        if(i <= (barsLength/2)/2 && i > 20){
+            bar_y_position = getRandomNum((canvas.height/2)/3,(canvas.height/2)/1.5)
+        }else if(i <= barsLength/2 && i >= (barsLength/2)/2){
+            bar_y_position = canvas.height/2 - barHeight
+        }else if(i >= ((barsLength/2) + ((barsLength/2)/2)) && i <= barsLength){
+            bar_y_position = canvas.height/2 - barHeight
+        }else{
+            bar_y_position = getRandomNum((canvas.height/2)/3,(canvas.height/2)/1.5)
+        }
+        
+       // let newBar = 
+        bars.push(new bar(i, bar_y_position, 1, barHeight))
+    }
+}
+ 
+drawBars()
+
+
+//Update context
+pointerCtx = canvas.getContext('2d');
+let pointer = {
+    x_position : bars[0].x,
+    y_position : 20,
+    height : canvas.height/2,
+    width : 1,
+}
+
+let j = 0
+let updateLoop = setInterval(()=>{
+        //clear previous context
+        //barCtx.clearRect(0, 0, canvas.width, canvas.height)
+    if(j <= bars.length-1){
+        // barCtx.fillStyle = 'rgb(65, 10, 102)'
+        barCtx.fillRect(bars[j].x, bars[j].y, bars[j].w, bars[j].h);
+        if(bars[j].x <= pointer.x_position){
+            barCtx.fillStyle = 'grey'
+        }else{
+            barCtx.fillStyle = 'purple'
+        }
+    }
+
+    if(isPlaying == true){
+        barCtx.fillStyle = 'red'
+    }
+
+    pointerCtx.fillRect(pointer.x_position,pointer.y_position,pointer.width,pointer.height)
+    // pointerCtx.fillStyle = "green"
+
+    //  console.log(bars[j].x, bars[j].y, bars[j].w, bars[j].h)
+    if(j>=bars.length-1){
+      j= 0
+    }else{
+        j++
+    }
+
+},30)
+
+//Start song from bar position
+canvas.addEventListener('click',(event)=>{
+        let rect = canvas.getBoundingClientRect();
+        let x = event.clientX - rect.left;
+        let y = event.clientY - rect.top;
+        console.log("Coordinate x: " + x, 
+                    "Coordinate y: " + y);
+        let playTime = x/4
+        changeTime(playTime )
+
+})
