@@ -43,6 +43,9 @@ playPauseBtn.innerHTML = "<i class='material-icons'> &#xe037;</i>"
 let nextSongBtn = document.getElementById('next-btn');
 //get previos song button
 let previousSongBtn = document.getElementById('previous-btn')
+//get fast forward btn
+let fastForwardBtn = document.getElementById('fast-forward-btn')
+
 
 //////Play or Pause audio/////
 let isPlaying = false;
@@ -94,6 +97,11 @@ previousSongBtn.addEventListener('click',()=>{
     if(isPlaying) audio.play()
     //draw bars after changing song
     drawBars()
+})
+
+//Fast forward song by 15 seconds
+fastForwardBtn.addEventListener('click',()=>{
+    changeTime(audio.currentTime + 15)
 })
 
 //change time to current bar
